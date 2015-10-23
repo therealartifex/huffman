@@ -1,0 +1,112 @@
+\input{preamble.tex}
+\begin{document}
+\newcolumntype{C}{>{\centering\arraybackslash}p{1em}}
+	
+	\input{3/tpage.tex}
+	\section{Problem Description}
+	This program takes a set of strings and places them in a binary tree for the purpose of Huffman encoding. Huffman encoding of characters reduces the total space requirements by assigning short encodings to characters occurring more frequently, and longer encodings to those less frequent. We will use a binary tree to represent the Huffman encoding. The leaves of the tree are the characters being encoded. After encoding the strings, the program allows the user to decode a string based on the newly created Huffman tree.
+	
+	\section{Input / Output Analysis}
+	\subsection{Input}
+	Input constraints:
+	\begin{itemize}
+		\item Each string is $\leq$ 80 characters
+		\item Each string contains no whitespace or punctuation
+		\item Number of strings is $\leq$ 1,000,000
+		\item Huffman-encoded string consists of zeros and ones
+	\end{itemize}
+	The program uses the regular expressions metacharacter \verb|\W| to remove whitespace and punctuation, and all characters are converted to lowercase. If only a blank line is entered, the program will terminate.
+	\begin{lstlisting}[caption=Sample plaintext input]
+		USA
+		won
+		the
+		world
+		cup
+		and
+		joe
+		likes
+		fat
+		hotdogs
+	\end{lstlisting}
+	\vspace{1cm}
+	\begin{lstlisting}[caption=Sample encoded input]
+		101010011111101100010011011
+	\end{lstlisting}
+	\newpage
+	
+	\subsection{Output}
+	
+	\subsubsection{Example Output:}
+	The output of the program is a table of each character, its frequency, and its Huffman code. The program then displays some statistics about the Huffman tree: its height, how many unique characters there are, and which characters had the longest and shortest encodings. When the user inputs a Huffman-encoded string, the program will display the plaintext of the encoded string. The program will prompt for encoded strings until the user types the word ``quit''.
+	\begin{lstlisting}
+	Enter some strings. Type a blank line when finished.
+	USA 
+	won 
+	the
+	world 
+	cup 
+	and 
+	joe 
+	likes 
+	fat 
+	hotdogs
+	
+	Input analysis complete.
+	FREQ    CHAR    CODE
+	-----------------------
+	1       c       00000
+	1       f       00001
+	1       g       01001
+	1       i       01110
+	1       j       01111
+	1       k       01000
+	1       p       00110
+	1       r       00111
+	2       h       1010
+	2       l       0001
+	2       n       0101
+	2       u       0010
+	2       w       0110
+	3       a       1100
+	3       d       1101
+	3       e       1110
+	3       s       1011
+	3       t       1111
+	5       o       100
+	Unique chars in tree: 19
+	Tree Height: 5
+	Longest Encoding: [00000 = c]
+	Shortest Encoding: [100 = o]
+	Enter a string to be decoded:
+	101010011111101100010011011
+	hotdogs
+	Enter a string to be decoded:
+	quit
+	Program terminated
+	\end{lstlisting}
+
+	\newpage
+	
+	\section{Program Design}
+	\subsection{Class Diagram}
+	\begin{center}
+		\includegraphics[scale=0.80]{3/cd.pdf}
+	\end{center}
+	\newpage
+	\thispagestyle{empty}
+	\begin{landscape}
+		\includepdf[pages={1},scale=1.23,pagecommand=\subsection{Design Chart}]{3/deschart.pdf}
+	\end{landscape}
+
+	
+	\section{Data Structure Graphics}
+	\subsection{Min Heap:}
+	\begin{center}
+		\includegraphics[scale=1.0]{min-heap.png}
+	\end{center}
+	\subsection{Huffman Tree:}
+	\begin{center}
+		\includegraphics[scale=1.0]{hufftree.png}
+	\end{center}
+
+\end{document}
