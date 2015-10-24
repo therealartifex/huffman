@@ -36,15 +36,13 @@ public class Driver {
         String input = "-1";
         String list = "";
 
-        System.out.println("Enter some strings. " +
-                "Type a blank line when finished.");
+        System.out.printf("Enter some strings. Type a blank line when finished.\n");
         Scanner sc = new Scanner(System.in);
         while (!input.equals("") && input.length() <= 80){
             input = sc.nextLine();
             list += input;
         }
-        if (list.equals(""))
-            System.exit(0);
+        if (list.equals("")) System.exit(0);
 
         // read each character and record the frequencies,
         // ignoring all non-word characters
@@ -55,25 +53,19 @@ public class Driver {
         mainTree = buildTree(charFreqs);
 
         // print out results
-        System.out.println("Input analysis complete.\n" +
-                "FREQ\tCHAR\tCODE\n" +
-                "-----------------------");
+        System.out.println("Input analysis complete.\nFREQ\tCHAR\tCODE\n-----------------------");
+
         genCodes(mainTree, new StringBuffer());
         Collections.sort(results);
         results.forEach(System.out::println);
-        System.out.println("Unique chars in tree: " + results.size() +
-                "\nTree Height: " + maxHeight +
-                "\nLongest Encoding: " + longest +
-                "\nShortest Encoding: " + shortest);
+        System.out.printf("Unique chars in tree: %d\nTree Height: %d\nLongest Encoding: %s\nShortest Encoding: %s%n", results.size(), maxHeight, longest, shortest);
 
         // Prompt for encoded strings until "quit" is entered
         String code_str;
         while (true) {
             System.out.println("Enter a string to be decoded:");
             code_str = sc.nextLine();
-            if (code_str.equals("quit")) {
-                break;
-            }
+            if (code_str.equals("quit")) break;
             System.out.println(decode(mainTree, code_str));
         }
         System.out.println("Program terminated");
@@ -85,9 +77,7 @@ public class Driver {
 
         // initially, we have a forest of leaves
         // one for each non-empty character
-        for (int i = 0; i < charFreqs.length; i++)
-            if (charFreqs[i] > 0)
-                trees.add(new HData(charFreqs[i], (char)i));
+        for (int i = 0; i < charFreqs.length; i++) if (charFreqs[i] > 0) trees.add(new HData(charFreqs[i], (char)i));
 
         assert trees.size() > 0;
 
@@ -145,11 +135,9 @@ public class Driver {
         for (int i=0;i<codedString.length(); i++) {
             if (currTree instanceof HNode) {
                 HNode node = (HNode)currTree;
-                if (codedString.charAt(i) == '1') {
-                    currTree = node.right;
-                } else {
-                    currTree = node.left;
-                }
+
+                if (codedString.charAt(i) == '1') currTree = node.right;
+                else currTree = node.left;
             }
 
             if (currTree instanceof HData) {

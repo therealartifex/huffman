@@ -37,15 +37,13 @@ public class MinHeap<E extends Comparable<E>> {
     // Adds a value to the min-heap.
     public void add(E value) {
         // grow heap if needed
-        if (size == heap.length - 1)
-            heap = Arrays.copyOf(heap, heap.length * 2);
+        if (size == heap.length - 1) heap = Arrays.copyOf(heap, heap.length * 2);
 
         // place element into heap at bottom
         int index = ++size;
 
         // Shift up
-        for(; index > 1 && value.compareTo(heap[index/2]) < 0; index = index/2)
-            heap[index] = heap[index/2];
+        for(; index > 1 && value.compareTo(heap[index/2]) < 0; index = index/2) heap[index] = heap[index/2];
         
         heap[index] = value;
     }
@@ -69,14 +67,10 @@ public class MinHeap<E extends Comparable<E>> {
         {
             childIndex = 2*i;
 
-            if(childIndex != size &&
-                    heap[childIndex].compareTo(heap[childIndex + 1]) > 0)
-                childIndex++;
+            if(childIndex != size && heap[childIndex].compareTo(heap[childIndex + 1]) > 0) childIndex++;
 
-            if(tmp.compareTo(heap[childIndex]) > 0)
-                heap[i] = heap[childIndex];
-            else
-                break;
+            if(tmp.compareTo(heap[childIndex]) > 0) heap[i] = heap[childIndex];
+            else break;
         }
         heap[i] = tmp;
     }
